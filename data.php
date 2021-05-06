@@ -74,34 +74,22 @@
         ]
     ];
 
-    function searchInArr($multiArr, $searchKey, $searchValue) {
-        
-        $result = [];
-
-        foreach ($multiArr as $item) {
-            if ($item[$searchKey] === $searchValue) {
-                $result []= $item;
-            }
-        }
-
-        return $result;
-    }
     
     $searchKey = $_GET['searchKey'];
     $searchValue = $_GET['searchValue'];
-
+    
+    function filter($v, $k) {
+        
+        return $v[$_GET['searchKey']] === $_GET['searchValue'];
+    }
 
     if ($searchValue == 'all') {
-        
-        $searchValue = null;
-    }
-    
-    if ($searchValue === null) {
 
         echo json_encode($db);
     } else {
-        $filteredDb = searchInArr($db, $searchKey, $searchValue);
 
-        echo json_encode($filteredDb);
+        $newArr = array_filter($db, 'filter', ARRAY_FILTER_USE_BOTH);
+
+        echo json_encode($newArr);
     }
 ?>
