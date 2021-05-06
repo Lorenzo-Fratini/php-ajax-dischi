@@ -6,12 +6,21 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
     <!-- vue 2 -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.x"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <!-- axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
   </head>
   <body>
   <div id="app">
+    <div class="select-cont">
+      <label for="genre">Choose a genre :</label>
+      <select name="genre" v-model="selected" @change="genreFilter()">
+        <option value="all">All</option>
+        <option v-for="genre in genres" :value="genre">
+          {{ genre }}
+        </option>
+      </select>
+    </div>
     <div class="cont">
       <div v-for="cd in cds">
         <div class="box">

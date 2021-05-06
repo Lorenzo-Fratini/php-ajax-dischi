@@ -1,6 +1,6 @@
 <?php
     header('Content-Type: application/json');
-    
+
     $db = [
         [
             "poster" => "https://www.onstageweb.com/wp-content/uploads/2018/09/bon-jovi-new-jersey.jpg",
@@ -73,6 +73,35 @@
             "year" => "1987"
         ]
     ];
+
+    function searchInArr($multiArr, $searchKey, $searchValue) {
+        
+        $result = [];
+
+        foreach ($multiArr as $item) {
+            if ($item[$searchKey] === $searchValue) {
+                $result []= $item;
+            }
+        }
+
+        return $result;
+    }
     
-    echo json_encode($db);
+    $searchKey = $_GET['searchKey'];
+    $searchValue = $_GET['searchValue'];
+
+
+    if ($searchValue == 'all') {
+        
+        $searchValue = null;
+    }
+    
+    if ($searchValue === null) {
+
+        echo json_encode($db);
+    } else {
+        $filteredDb = searchInArr($db, $searchKey, $searchValue);
+
+        echo json_encode($filteredDb);
+    }
 ?>
